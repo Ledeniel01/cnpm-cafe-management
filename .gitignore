@@ -1,0 +1,16 @@
+# Dữ liệu và môi trường riêng của từng máy.
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+instance/
+*.log
+*.sql
+!schema_changes/*.sql
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

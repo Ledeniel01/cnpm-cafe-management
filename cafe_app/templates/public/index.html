@@ -1,0 +1,22 @@
+<!-- Trang chủ ban đầu; menu thật được nối sau khi có model và hàm đọc dữ liệu. -->
+{% extends 'base.html' %}
+{% block title %}Trang chủ | Quán Cafe{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">Chào bạn đến với Quán Cafe</p>
+    <h1>Một chút cà phê<br>cho ngày của bạn.</h1>
+    <p class="lead">Dùng tại quán hoặc giao tận nơi, theo cách bạn thích.</p>
+</section>
+<section class="service-grid" aria-label="Các hình thức phục vụ">
+    <article class="service-card">
+        <span class="card-number">01</span>
+        <h2>Tại quán</h2>
+        <p>Chọn món và số bàn để nhân viên mang món đến đúng chỗ bạn.</p>
+    </article>
+    <article class="service-card">
+        <span class="card-number">02</span>
+        <h2>Giao tận nơi</h2>
+        <p>Để lại thông tin nhận hàng. Quán tự giao, thanh toán khi nhận.</p>
+    </article>
+</section>
+{% endblock %}

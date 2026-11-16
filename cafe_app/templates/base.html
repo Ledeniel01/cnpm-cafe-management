@@ -1,0 +1,32 @@
+<!-- Khung trang public dùng chung; không phụ thuộc vào auth hoặc model. -->
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{% block title %}Quán Cafe{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public.css') }}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="page-width header-content">
+            <a class="brand" href="{{ url_for('public.index') }}">Quán Cafe</a>
+            <nav aria-label="Điều hướng chính">
+                <a href="{{ url_for('public.index') }}">Trang chủ</a>
+            </nav>
+        </div>
+    </header>
+    <main class="page-width">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="notice notice-{{ category }}" role="status">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="page-width site-footer">Cà phê tại quán và giao tận nơi.</footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

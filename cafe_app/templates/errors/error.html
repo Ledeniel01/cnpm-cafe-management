@@ -1,0 +1,11 @@
+<!-- Trang lỗi an toàn, không in traceback hoặc thông tin kết nối CSDL. -->
+{% extends 'base.html' %}
+{% block title %}{{ code }} - {{ title }} | Quán Cafe{% endblock %}
+{% block content %}
+<section class="error-panel">
+    <p class="eyebrow">Mã lỗi {{ code }}</p>
+    <h1>{{ title }}</h1>
+    <p class="lead">{{ message }}</p>
+    <a class="button" href="{{ url_for('public.index') }}">Về trang chủ</a>
+</section>
+{% endblock %}
