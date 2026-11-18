@@ -1,0 +1,24 @@
+/* admin.css — chỉnh nhẹ giao diện Flask-Admin (Bootstrap 4); tách khỏi public.css */
+
+.admin-card {
+    border: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.admin-user {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Thông báo lỗi nhập liệu nổi bật hơn */
+.invalid-feedback,
+.help-block {
+    color: #dc3545;
+    font-size: 0.875rem;
+}
