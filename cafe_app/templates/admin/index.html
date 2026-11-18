@@ -1,0 +1,50 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<div class="py-3">
+  <h1 class="h3 mb-1">Trang quản trị</h1>
+  <p class="text-muted">
+    Xin chào <strong>{{ current_user.full_name or current_user.username }}</strong> (Quản lý).
+  </p>
+
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card h-100 admin-card">
+        <div class="card-body">
+          <h5 class="card-title">Thực đơn</h5>
+          <p class="card-text text-muted small">
+            Thêm, sửa giá (VND), ngừng bán món. Món đã có trong đơn không xóa được, chỉ ngừng bán.
+          </p>
+          <a href="{{ url_for('admin_menu.index_view') }}" class="btn btn-sm btn-primary">Quản lý thực đơn</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card h-100 admin-card">
+        <div class="card-body">
+          <h5 class="card-title">Bàn</h5>
+          <p class="card-text text-muted small">
+            Thêm, đổi tên, bật/tắt bàn. Tắt bàn chỉ ảnh hưởng đơn mới.
+          </p>
+          <a href="{{ url_for('admin_table.index_view') }}" class="btn btn-sm btn-primary">Quản lý bàn</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card h-100 admin-card">
+        <div class="card-body">
+          <h5 class="card-title">Phí dịch vụ</h5>
+          <p class="card-text text-muted small">
+            Phí phục vụ từ 0 đến 100%, mặc định 5%. Đổi phí chỉ áp dụng cho đơn tạo sau đó.
+          </p>
+          <a href="{{ url_for('admin_fee.index_view') }}" class="btn btn-sm btn-primary">Quản lý phí</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-secondary small mb-0">
+    Đơn hàng, xác nhận và thu tiền thực hiện ở trang nhân viên/thu ngân, không sửa tại trang quản trị.
+  </div>
+</div>
+{% endblock %}

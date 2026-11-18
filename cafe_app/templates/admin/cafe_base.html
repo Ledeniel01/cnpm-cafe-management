@@ -1,0 +1,16 @@
+{% extends 'admin/base.html' %}
+{% block head_css %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+{% block access_control %}
+  {% if current_user.is_authenticated %}
+  <div class="navbar-text ml-auto mr-3 admin-user">
+    {{ current_user.full_name or current_user.username }}
+  </div>
+  <form method="post" action="{{ url_for('auth.logout') }}" class="form-inline">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-sm btn-outline-light">Đăng xuất</button>
+  </form>
+  {% endif %}
+{% endblock %}
