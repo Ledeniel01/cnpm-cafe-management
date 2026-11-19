@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Đơn hàng</title>
+<h1>Đơn hàng</h1>
+<form method="post" action="{{ url_for('auth.logout') }}">
+  {% if csrf_token is defined %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+  <button>Đăng xuất</button>
+</form>
+<p>
+  <a href="{{ url_for('staff.orders') }}">Tất cả</a>
+  {% for s in statuses %} | <a href="{{ url_for('staff.orders', status=s) }}">{{ s }}</a>{% endfor %}
+</p>
+<table border="1">
+  <tr><th>Mã</th><th>Hình thức</th><th>Khách</th><th>SĐT</th><th>Tổng</th><th>Trạng thái</th></tr>
+  {% for o in orders %}
+  <tr>
+    <td><a href="{{ url_for('staff.order_detail', order_id=o.id) }}">{{ o.code }}</a></td>
+    <td>{{ o.order_type }}</td>
+    <td>{{ o.customer_name }}</td>
+    <td>{{ o.customer_phone }}</td>
+    <td>{{ '{:,.0f}'.format(o.total) }}</td>
+    <td>{{ o.status }}</td>
+  </tr>
+  {% endfor %}
+</table>

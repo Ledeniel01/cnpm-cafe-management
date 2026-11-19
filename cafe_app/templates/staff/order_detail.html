@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>{{ o.code }}</title>
+<a href="{{ url_for('staff.orders') }}">Quay lại</a>
+<h1>{{ o.code }} - {{ o.status }}</h1>
+{% for category, message in get_flashed_messages(with_categories=true) %}
+<p>{{ message }}</p>
+{% endfor %}
+<p>
+  {{ o.order_type }}{% if o.table %} - {{ o.table.name }}{% endif %}
+  | {{ o.customer_name }} | {{ o.customer_phone }}
+</p>
+<table border="1">
+  <tr><th>Món</th><th>ĐV</th><th>Giá</th><th>SL</th><th>Thành tiền</th></tr>
+  {% for i in o.items %}
+  <tr>
+    <td>{{ i.item_name }}</td>
+    <td>{{ i.unit }}</td>
+    <td>{{ '{:,.0f}'.format(i.unit_price) }}</td>
+    <td>{{ i.quantity }}</td>
+    <td>{{ '{:,.0f}'.format(i.line_total) }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<p>Tạm tính: {{ '{:,.0f}'.format(o.subtotal) }}</p>
+{% for f in fees %}
+<p>{{ f.name }}: {{ '{:,.0f}'.format(f.amount) }}</p>
+{% endfor %}
+<p><b>Tổng: {{ '{:,.0f}'.format(o.total) }}</b></p>
+<p>
+  Xác nhận: {{ o.confirmed_at or '-' }} ({{ o.confirmed_by.full_name if o.confirmed_by else '-' }})
+  | Thu: {{ o.paid_at or '-' }} ({{ o.paid_by.full_name if o.paid_by else '-' }})
+</p>
+{% if can_confirm %}
+<form method="post" action="{{ url_for('staff.confirm', order_id=o.id) }}">
+  {% if csrf_token is defined %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+  <button>Xác nhận lập hóa đơn</button>
+</form>
+{% endif %}
+{% if can_pay %}
+<form method="post" action="{{ url_for('staff.pay', order_id=o.id) }}">
+  {% if csrf_token is defined %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+  <button>Xác nhận đã thu tiền</button>
+</form>
+{% endif %}

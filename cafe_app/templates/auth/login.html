@@ -1,0 +1,13 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Đăng nhập</title>
+<h1>Đăng nhập nhân viên</h1>
+{% for category, message in get_flashed_messages(with_categories=true) %}
+<p>{{ message }}</p>
+{% endfor %}
+<form method="post">
+  {% if csrf_token is defined %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+  <input name="username" placeholder="Tên đăng nhập" required>
+  <input name="password" type="password" placeholder="Mật khẩu" required>
+  <button>Đăng nhập</button>
+</form>

@@ -1,4 +1,3 @@
-"""Model v1. Giả định: cafe_app/extensions.py có `db = SQLAlchemy()`."""
 from datetime import datetime
 
 from flask_login import UserMixin
@@ -85,7 +84,7 @@ class Order(TimestampMixin, db.Model):
     subtotal = db.Column(Money, nullable=False, default=0)
     fee_amount = db.Column(Money, nullable=False, default=0)
     total = db.Column(Money, nullable=False, default=0)
-    fee_snapshot = db.Column(db.Text, nullable=True)  # JSON các phí đã áp
+    fee_snapshot = db.Column(db.Text, nullable=True)
 
     confirmed_at = db.Column(db.DateTime, nullable=True)
     confirmed_by_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
@@ -94,8 +93,8 @@ class Order(TimestampMixin, db.Model):
     cancelled_at = db.Column(db.DateTime, nullable=True)
     cancelled_by_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
     cancel_reason = db.Column(db.String(255), nullable=True)
-    edit_reason = db.Column(db.String(255), nullable=True)  # tuần 2
-    version = db.Column(db.Integer, nullable=False, default=1)  # optimistic lock
+    edit_reason = db.Column(db.String(255), nullable=True)
+    version = db.Column(db.Integer, nullable=False, default=1)
 
     table = db.relationship("DiningTable")
     items = db.relationship("OrderItem", back_populates="order",

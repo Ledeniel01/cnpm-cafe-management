@@ -1,21 +1,22 @@
 from functools import wraps
 
 from flask import abort
-from flask_login import current_user
+from flask_login import current_user, login_required
 
-from .constants import ROLE_ADMIN
+from . import constants as C
+
+PERM_VIEW = set(C.ROLES)
+PERM_CONFIRM = {C.ROLE_STAFF, C.ROLE_ADMIN}
+PERM_PAY = {C.ROLE_CASHIER, C.ROLE_ADMIN}
 
 
-def role_required(*roles):
-    allowed = set(roles) | {ROLE_ADMIN}
-
-    def deco(fn):
+def roles_required(*roles):
+    def decorator(fn):
         @wraps(fn)
-        def wrapper(*a, **kw):
-            if not current_user.is_authenticated:
-                abort(401)
-            if current_user.role not in allowed:
+        @login_required
+        def wrapper(*args, **kwargs):
+            if current_user.role not in roles:
                 abort(403)
-            return fn(*a, **kw)
+            return fn(*args, **kwargs)
         return wrapper
-    return deco
+    return decorator
